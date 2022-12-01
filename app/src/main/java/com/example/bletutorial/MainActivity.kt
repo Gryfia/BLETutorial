@@ -1,57 +1,44 @@
 package com.example.bletutorial
 
-import android.app.Activity
-import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
-import com.example.bletutorial.presentation.Navigation
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
+import androidx.compose.material.MaterialTheme
 import com.example.bletutorial.ui.theme.BLETutorialTheme
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import com.example.bletutorial.presentation.BabyList
+import com.example.bletutorial.presentation.GrowthGraph
 
-@AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    @Inject lateinit var bluetoothAdapter: BluetoothAdapter
+    private lateinit var addbaby : Button
+    private lateinit var growthgraph : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            BLETutorialTheme {
-                Navigation(
-                    onBluetoothStateChanged = {
-                        showBluetoothDialog()
-                    }
-                )
+        setContentView(R.layout.activity_main)
+
+        addbaby = findViewById(R.id.addbaby)
+        growthgraph = findViewById(R.id.growthgraph)
+
+        addbaby.setOnClickListener(this)
+        growthgraph.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.addbaby -> {
+                val intent = Intent(this@MainActivity, BabyList::class.java)
+                startActivity(intent)
+            }
+            R.id.growthgraph -> {
+                Toast.makeText(this, "Growth Graph", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@MainActivity, GrowthGraph::class.java)
+                startActivity(intent)
             }
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        showBluetoothDialog()
-    }
-
-    private var isBluetootDialogAlreadyShown = false
-    private fun showBluetoothDialog(){
-        if(!bluetoothAdapter.isEnabled){
-            if(!isBluetootDialogAlreadyShown){
-                val enableBluetoothIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                startBluetoothIntentForResult.launch(enableBluetoothIntent)
-                isBluetootDialogAlreadyShown = true
-            }
-        }
-    }
-
-    private val startBluetoothIntentForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-            isBluetootDialogAlreadyShown = false
-            if(result.resultCode != Activity.RESULT_OK){
-                showBluetoothDialog()
-            }
-        }
-
 }
