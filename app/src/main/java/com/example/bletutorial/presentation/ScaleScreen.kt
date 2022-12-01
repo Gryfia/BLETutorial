@@ -29,9 +29,9 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun TemperatureHumidityScreen(
+fun ScaleScreen(
     onBluetoothStateChanged:()->Unit,
-    viewModel: TempHumidityViewModel = hiltViewModel()
+    viewModel: ScaleViewModel = hiltViewModel()
 ) {
 
     SystemBroadcastReceiver(systemAction = BluetoothAdapter.ACTION_STATE_CHANGED){ bluetoothState ->
@@ -144,7 +144,7 @@ fun TemperatureHumidityScreen(
                     verticalArrangement = Arrangement.Center
                 ){
                     Text(
-                        text = "Berat: ${viewModel.temperature} Kg",
+                        text = "Weight: ${viewModel.weight} Kg",
                         style = MaterialTheme.typography.h6
                     )
                 }

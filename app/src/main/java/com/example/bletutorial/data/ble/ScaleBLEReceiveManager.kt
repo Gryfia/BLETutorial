@@ -10,30 +10,28 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.bletutorial.data.ConnectionState
-import com.example.bletutorial.data.TempHumidityResult
-import com.example.bletutorial.data.TemperatureAndHumidityReceiveManager
+import com.example.bletutorial.data.ScaleResult
+import com.example.bletutorial.data.ScaleReceiveManager
 import com.example.bletutorial.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-import java.io.UnsupportedEncodingException
-import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets.UTF_8
 import java.util.*
 import javax.inject.Inject
 
 @SuppressLint("MissingPermission")
-class TemperatureAndHumidityBLEReceiveManager @Inject constructor(
+class ScaleBLEReceiveManager @Inject constructor(
     private val bluetoothAdapter: BluetoothAdapter,
     private val context: Context
-) : TemperatureAndHumidityReceiveManager {
+) : ScaleReceiveManager {
 
     private val DEVICE_NAME = "Neocortex BLE"
-    private val TEMP_HUMIDITY_SERVICE_UIID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
-    private val TEMP_HUMIDITY_CHARACTERISTICS_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
+    private val SCALE_SERVICE_UIID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
+    private val SCALE_CHARACTERISTICS_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
 
-    override val data: MutableSharedFlow<Resource<TempHumidityResult>> = MutableSharedFlow()
+    override val data: MutableSharedFlow<Resource<ScaleResult>> = MutableSharedFlow()
 
     private val bleScanner by lazy {
         bluetoothAdapter.bluetoothLeScanner
@@ -77,10 +75,10 @@ class TemperatureAndHumidityBLEReceiveManager @Inject constructor(
                         data.emit(Resource.Loading(message = "Discovering Services..."))
                     }
                     gatt.discoverServices()
-                    this@TemperatureAndHumidityBLEReceiveManager.gatt = gatt
+                    this@ScaleBLEReceiveManager.gatt = gatt
                 } else if(newState == BluetoothProfile.STATE_DISCONNECTED){
                     coroutineScope.launch {
-                        data.emit(Resource.Success(data = TempHumidityResult(0f,0f,ConnectionState.Disconnected)))
+                        data.emit(Resource.Success(data = ScaleResult(0f, ConnectionState.Disconnected)))
                     }
                     gatt.close()
                 }
@@ -116,10 +114,10 @@ class TemperatureAndHumidityBLEReceiveManager @Inject constructor(
         }
 
         override fun onMtuChanged(gatt: BluetoothGatt, mtu: Int, status: Int) {
-            val characteristic = findCharacteristics(TEMP_HUMIDITY_SERVICE_UIID, TEMP_HUMIDITY_CHARACTERISTICS_UUID)
+            val characteristic = findCharacteristics(SCALE_SERVICE_UIID, SCALE_CHARACTERISTICS_UUID)
             if(characteristic == null){
                 coroutineScope.launch {
-                    data.emit(Resource.Error(errorMessage = "Could not find temp and humidity publisher"))
+                    data.emit(Resource.Error(errorMessage = "Could not find scale publisher"))
                 }
                 return
             }
@@ -132,24 +130,23 @@ class TemperatureAndHumidityBLEReceiveManager @Inject constructor(
         ) {
             with(characteristic){
                 when(uuid){
-                    UUID.fromString(TEMP_HUMIDITY_CHARACTERISTICS_UUID) -> {
+                    UUID.fromString(SCALE_CHARACTERISTICS_UUID) -> {
                         //XX XX XX XX XX XX
 
                         val messageBytes = characteristic.value
                         val messageString = String(messageBytes, UTF_8)
                         val hasil = messageString.toFloat()
 
-                        val temperature = hasil
-                        val humidity = value[2].toInt() / 1f
+                        val scale = hasil
+//                        val humidity = value[2].toInt() / 1f
                         Log.d("Hasil", "${messageString}")
-                        val tempHumidityResult = TempHumidityResult(
-                            temperature,
-                            humidity,
+                        val ScaleResult = ScaleResult(
+                            scale,
                             ConnectionState.Connected
                         )
                         coroutineScope.launch {
                             data.emit(
-                                Resource.Success(data = tempHumidityResult)
+                                Resource.Success(data = ScaleResult)
                             )
                         }
                     }
@@ -215,7 +212,7 @@ class TemperatureAndHumidityBLEReceiveManager @Inject constructor(
 
     override fun closeConnection() {
         bleScanner.stopScan(scanCallback)
-        val characteristic = findCharacteristics(TEMP_HUMIDITY_SERVICE_UIID, TEMP_HUMIDITY_CHARACTERISTICS_UUID)
+        val characteristic = findCharacteristics(SCALE_SERVICE_UIID, SCALE_CHARACTERISTICS_UUID)
         if(characteristic != null){
             disconnectCharacteristic(characteristic)
         }

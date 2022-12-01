@@ -19,8 +19,8 @@ fun Navigation(
             StartScreen(navController = navController)
         }
 
-        composable(Screen.TemperatureHumidityScreen.route){
-            TemperatureHumidityScreen(
+        composable(Screen.ScaleScreen.route){
+            ScaleScreen(
                 onBluetoothStateChanged
             )
         }
@@ -30,5 +30,5 @@ fun Navigation(
 
 sealed class Screen(val route:String){
     object StartScreen:Screen("start_screen")
-    object TemperatureHumidityScreen:Screen("temp_humid_screen")
+    object ScaleScreen:Screen("scale_screen")
 }

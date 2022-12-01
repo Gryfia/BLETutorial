@@ -6,15 +6,15 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bletutorial.data.ConnectionState
-import com.example.bletutorial.data.TemperatureAndHumidityReceiveManager
+import com.example.bletutorial.data.ScaleReceiveManager
 import com.example.bletutorial.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TempHumidityViewModel @Inject constructor(
-    private val temperatureAndHumidityReceiveManager: TemperatureAndHumidityReceiveManager
+class ScaleViewModel @Inject constructor(
+    private val ScaleReceiveManager: ScaleReceiveManager
 ) : ViewModel(){
 
     var initializingMessage by mutableStateOf<String?>(null)
@@ -23,22 +23,18 @@ class TempHumidityViewModel @Inject constructor(
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
-    var temperature by mutableStateOf(0f)
-        private set
-
-    var humidity by mutableStateOf(0f)
+    var weight by mutableStateOf(0f)
         private set
 
     var connectionState by mutableStateOf<ConnectionState>(ConnectionState.Uninitialized)
 
     private fun subscribeToChanges(){
         viewModelScope.launch {
-            temperatureAndHumidityReceiveManager.data.collect{ result ->
+            ScaleReceiveManager.data.collect{ result ->
                 when(result){
                     is Resource.Success -> {
                         connectionState = result.data.connectionState
-                        temperature = result.data.temperature
-                        humidity = result.data.humidity
+                        weight = result.data.weight
                     }
 
                     is Resource.Loading -> {
@@ -56,22 +52,22 @@ class TempHumidityViewModel @Inject constructor(
     }
 
     fun disconnect(){
-        temperatureAndHumidityReceiveManager.disconnect()
+        ScaleReceiveManager.disconnect()
     }
 
     fun reconnect(){
-        temperatureAndHumidityReceiveManager.reconnect()
+        ScaleReceiveManager.reconnect()
     }
 
     fun initializeConnection(){
         errorMessage = null
         subscribeToChanges()
-        temperatureAndHumidityReceiveManager.startReceiving()
+        ScaleReceiveManager.startReceiving()
     }
 
     override fun onCleared() {
         super.onCleared()
-        temperatureAndHumidityReceiveManager.closeConnection()
+        ScaleReceiveManager.closeConnection()
     }
 
 
