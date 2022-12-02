@@ -24,13 +24,17 @@ class ScaleBaby : ComponentActivity() {
         setContent {
             BLETutorialTheme {
                 val NIK = intent.getStringExtra("NIK")
+                val umur = intent.getIntExtra("umur", 0)
                 if (NIK != null) {
-                    Navigation(
-                        onBluetoothStateChanged = {
-                            showBluetoothDialog()
-                        },  NIK = NIK,
-                        LocalContext.current
-                    )
+                    if (umur != null) {
+                        Navigation(
+                            onBluetoothStateChanged = {
+                                showBluetoothDialog()
+                            },  NIK = NIK,
+                            umur = umur,
+                            LocalContext.current
+                        )
+                    }
                 }
             }
         }

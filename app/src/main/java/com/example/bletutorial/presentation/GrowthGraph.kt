@@ -38,7 +38,7 @@ class GrowthGraph : AppCompatActivity() {
 
         for (entry in umur) {
             var umur = umur[i].toFloat()
-            var berat = berat[i].toFloat()
+            var berat = berat[i]
             ourLineChartEntries.add(Entry(umur, berat))
             i++
         }
@@ -54,14 +54,13 @@ class GrowthGraph : AppCompatActivity() {
         ourLineChart.xAxis.apply {
             isGranularityEnabled = true
             position = XAxis.XAxisPosition.BOTTOM
-            axisMinimum = 0f
-            axisMaximum = 50f
+
         }
 
         ourLineChart.axisLeft.apply {
             isGranularityEnabled = true
             axisMinimum = 0f
-            axisMaximum = 50f
+            axisMaximum = 10f
         }
 
         lineDataSet.apply {

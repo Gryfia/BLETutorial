@@ -1,11 +1,10 @@
 package com.example.bletutorial.presentation
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +20,7 @@ class BabyList : AppCompatActivity() {
 
     private lateinit var dbHelper : SQLiteHelper
     private lateinit var recyclerView: RecyclerView
+    private lateinit var builder : AlertDialog.Builder
     private var adapter : BabyAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,12 +31,13 @@ class BabyList : AppCompatActivity() {
         initRecyclerView()
 
         dbHelper = SQLiteHelper(this)
+        builder = AlertDialog.Builder(this)
 
         val babyList = dbHelper.getAllBaby()
         adapter?.addItems(babyList)
 
         adapter?.setOnClickDelete { baby ->
-            deleteBaby(baby.id)
+            deleteBaby(baby.NIK)
         }
 
         btnAdd.setOnClickListener {
@@ -45,23 +46,46 @@ class BabyList : AppCompatActivity() {
         }
 
         adapter?.setOnClickItem { baby ->
-            val intent = Intent(this@BabyList, ScaleBaby::class.java)
-            intent.putExtra("NIK", baby.NIK)
-            intent.putExtra("Nama", baby.nama)
-            startActivity(intent)
+            val inflater = layoutInflater
+            val dialogLayout = inflater.inflate(R.layout.add_umur, null)
+            val editText = dialogLayout.findViewById<EditText>(R.id.edUmur)
+
+            builder.setView(dialogLayout)
+            builder.setTitle("Masukkan Umur")
+            builder.setPositiveButton("OK") { dialog, which ->
+
+                if (editText.text.toString().isEmpty() || editText.text.toString() == "") {
+                    Toast.makeText(this, "Umur tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                } else {
+                    val umur = editText.text.toString().toInt()
+                    val intent = Intent(this@BabyList, ScaleBaby::class.java)
+                    intent.putExtra("NIK", baby.NIK)
+                    intent.putExtra("umur", umur)
+                    startActivity(intent)
+                }
+
+            }
+            builder.setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss()
+            }
+            builder.create()
+            builder.show()
+
+
 
         }
 
     }
 
-    private fun deleteBaby(id: Int){
-        if (id == null) return
+    private fun deleteBaby(NIK: String){
 
         val builder = AlertDialog.Builder(this)
         builder.setMessage("Delete Baby")
         builder.setCancelable(true)
         builder.setPositiveButton("Yes") { dialog, _ ->
-            dbHelper.deleteBaby(id)
+            dbHelper.deleteBaby(NIK)
+            dbHelper.deleteWeight(NIK)
+            initRecyclerView()
         }
         builder.setNegativeButton("No") { dialog, _ ->
             dialog.cancel()

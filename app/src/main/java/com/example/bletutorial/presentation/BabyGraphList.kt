@@ -23,7 +23,7 @@ class BabyGraphList : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.baby_list)
+        setContentView(R.layout.baby_graph_list)
 
         initView()
         initRecyclerView()

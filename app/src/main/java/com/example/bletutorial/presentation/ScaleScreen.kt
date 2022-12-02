@@ -18,7 +18,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -43,7 +42,8 @@ fun ScaleScreen(
     viewModel: ScaleViewModel = hiltViewModel(),
     navController: NavController,
     NIK: String,
-    context : Context
+    context: Context,
+    umur: Int
 ) {
 
     SystemBroadcastReceiver(systemAction = BluetoothAdapter.ACTION_STATE_CHANGED){ bluetoothState ->
@@ -193,7 +193,8 @@ fun ScaleScreen(
                     context.startActivity(Intent(context, MainActivity::class.java))
                     lateinit var dbHelper : SQLiteHelper
                     dbHelper = SQLiteHelper(context)
-                    val weight = WeightModel(NIK = NIK, umur = Random.nextInt(1,50), berat = viewModel.weight)
+
+                    val weight = WeightModel(NIK = NIK, umur = umur, berat = viewModel.weight)
                     val id = dbHelper.insertWeight(weight)
                     if (id > 0) {
                         Toast.makeText(context, "Berhasil", Toast.LENGTH_SHORT).show()

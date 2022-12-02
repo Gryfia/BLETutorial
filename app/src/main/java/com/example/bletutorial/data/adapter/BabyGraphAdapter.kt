@@ -11,7 +11,6 @@ import com.example.bletutorial.data.model.BabyModel
 class BabyGraphAdapter : RecyclerView.Adapter<BabyGraphAdapter.BabyViewHolder>() {
     private var babyList: ArrayList<BabyModel> = ArrayList()
     private var onClickItem: ((BabyModel) -> Unit)? = null
-    private var onClickDelete: ((BabyModel) -> Unit)? = null
 
     fun addItems(babyList: ArrayList<BabyModel>) {
         this.babyList = babyList
@@ -22,12 +21,8 @@ class BabyGraphAdapter : RecyclerView.Adapter<BabyGraphAdapter.BabyViewHolder>()
         this.onClickItem = callback
     }
 
-    fun setOnClickDelete(callback: (BabyModel) -> Unit) {
-        this.onClickDelete = callback
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BabyViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.card_items_baby, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.card_items_baby_graph, parent, false)
     )
     override fun onBindViewHolder(holder: BabyViewHolder, position: Int) {
         val baby = babyList[position]

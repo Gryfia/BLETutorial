@@ -109,13 +109,13 @@ class SQLiteHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_BABY_
         return db.update(TABLE_BABY_NAME, values, "$ID_BABY=?", arrayOf(baby.id.toString()))
     }
 
-    fun deleteBaby(id: Int): Int{
+    fun deleteBaby(NIK: String): Int{
         val db = this.writableDatabase
 
         val values = ContentValues()
-        values.put(ID_BABY, id)
+        values.put(NIK_BABY, NIK)
 
-        val _success = db.delete(TABLE_BABY_NAME, "id="+id, null)
+        val _success = db.delete(TABLE_BABY_NAME, "NIK="+NIK, null)
         db.close()
         return _success
     }
@@ -153,13 +153,13 @@ class SQLiteHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_BABY_
         return weightList
     }
 
-    fun deleteWeight(id: Int): Int{
+    fun deleteWeight(NIK: String): Int{
         val db = this.writableDatabase
 
         val values = ContentValues()
-        values.put(ID_WEIGHT, id)
+        values.put(NIK_WEIGHT, NIK)
 
-        val _success = db.delete(TABLE_WEIGHT_NAME, "id="+id, null)
+        val _success = db.delete(TABLE_WEIGHT_NAME, "NIK="+NIK, null)
         db.close()
         return _success
     }

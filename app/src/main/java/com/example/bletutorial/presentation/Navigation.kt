@@ -2,7 +2,6 @@ package com.example.bletutorial.presentation
 
 import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -11,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 fun Navigation(
     onBluetoothStateChanged:()->Unit,
     NIK: String = "",
+    umur: Int = 0,
     context: Context
 ) {
 
@@ -23,7 +23,7 @@ fun Navigation(
 
         composable(Screen.ScaleScreen.route){
             ScaleScreen(
-                onBluetoothStateChanged, navController = navController, NIK = NIK, context = context
+                onBluetoothStateChanged, navController = navController, NIK = NIK, umur = umur, context = context
             )
         }
     }
