@@ -49,6 +49,10 @@
             android:name=".presentation.AddBaby"
             android:theme="@style/Theme.AppCompat.Light">
         </activity>
+        <activity
+            android:name=".presentation.BabyGraphList"
+            android:theme="@style/Theme.AppCompat.Light">
+        </activity>
     </application>
 
 </manifest>

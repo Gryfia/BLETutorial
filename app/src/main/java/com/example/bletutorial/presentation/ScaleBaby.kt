@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.ui.platform.LocalContext
 import com.example.bletutorial.presentation.Navigation
 import com.example.bletutorial.ui.theme.BLETutorialTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,17 +18,26 @@ class ScaleBaby : ComponentActivity() {
 
     @Inject lateinit var bluetoothAdapter: BluetoothAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BLETutorialTheme {
-                Navigation(
-                    onBluetoothStateChanged = {
-                        showBluetoothDialog()
-                    }
-                )
+                val NIK = intent.getStringExtra("NIK")
+                if (NIK != null) {
+                    Navigation(
+                        onBluetoothStateChanged = {
+                            showBluetoothDialog()
+                        },  NIK = NIK,
+                        LocalContext.current
+                    )
+                }
             }
         }
+
+//        val NIK = intent.getStringExtra("NIK")
+        val nama = intent.getStringExtra("Nama")
+
     }
 
     override fun onStart() {

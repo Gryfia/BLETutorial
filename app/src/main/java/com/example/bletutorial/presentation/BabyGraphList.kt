@@ -1,10 +1,7 @@
 package com.example.bletutorial.presentation
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,16 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bletutorial.R
 import com.example.bletutorial.data.adapter.BabyAdapter
+import com.example.bletutorial.data.adapter.BabyGraphAdapter
 import com.example.bletutorial.util.SQLiteHelper
 
-class BabyList : AppCompatActivity() {
+class BabyGraphList : AppCompatActivity() {
 
 
     private lateinit var btnAdd : Button
 
     private lateinit var dbHelper : SQLiteHelper
     private lateinit var recyclerView: RecyclerView
-    private var adapter : BabyAdapter? = null
+    private var adapter : BabyGraphAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,49 +33,22 @@ class BabyList : AppCompatActivity() {
         val babyList = dbHelper.getAllBaby()
         adapter?.addItems(babyList)
 
-        adapter?.setOnClickDelete { baby ->
-            deleteBaby(baby.id)
-        }
-
-        btnAdd.setOnClickListener {
-            val intent = Intent(this@BabyList, AddBaby::class.java)
-            startActivity(intent)
-        }
-
         adapter?.setOnClickItem { baby ->
-            val intent = Intent(this@BabyList, ScaleBaby::class.java)
+            val intent = Intent(this@BabyGraphList, GrowthGraph::class.java)
             intent.putExtra("NIK", baby.NIK)
-            intent.putExtra("Nama", baby.nama)
             startActivity(intent)
 
         }
 
-    }
-
-    private fun deleteBaby(id: Int){
-        if (id == null) return
-
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage("Delete Baby")
-        builder.setCancelable(true)
-        builder.setPositiveButton("Yes") { dialog, _ ->
-            dbHelper.deleteBaby(id)
-        }
-        builder.setNegativeButton("No") { dialog, _ ->
-            dialog.cancel()
-        }
-        val alertDialog = builder.create()
-        alertDialog.show()
     }
 
     private fun initRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = BabyAdapter()
+        adapter = BabyGraphAdapter()
         recyclerView.adapter = adapter
     }
 
     private fun initView(){
-        btnAdd = findViewById(R.id.btnAdd)
         recyclerView = findViewById(R.id.recyclerView)
     }
 

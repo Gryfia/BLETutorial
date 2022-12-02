@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import com.example.bletutorial.ui.theme.BLETutorialTheme
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import com.example.bletutorial.presentation.BabyGraphList
 import com.example.bletutorial.presentation.BabyList
 import com.example.bletutorial.presentation.GrowthGraph
 
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.growthgraph -> {
                 Toast.makeText(this, "Growth Graph", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@MainActivity, GrowthGraph::class.java)
+                val intent = Intent(this@MainActivity, BabyGraphList::class.java)
                 startActivity(intent)
             }
         }

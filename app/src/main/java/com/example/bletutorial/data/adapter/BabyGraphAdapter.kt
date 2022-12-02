@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bletutorial.R
 import com.example.bletutorial.data.model.BabyModel
 
-class BabyAdapter : RecyclerView.Adapter<BabyAdapter.BabyViewHolder>() {
+class BabyGraphAdapter : RecyclerView.Adapter<BabyGraphAdapter.BabyViewHolder>() {
     private var babyList: ArrayList<BabyModel> = ArrayList()
     private var onClickItem: ((BabyModel) -> Unit)? = null
     private var onClickDelete: ((BabyModel) -> Unit)? = null
@@ -35,9 +35,6 @@ class BabyAdapter : RecyclerView.Adapter<BabyAdapter.BabyViewHolder>() {
         holder.itemView.setOnClickListener {
             onClickItem?.invoke(baby)
         }
-        holder.btnDelete.setOnClickListener {
-            onClickDelete?.invoke(baby)
-        }
     }
 
     override fun getItemCount(): Int {
@@ -47,7 +44,6 @@ class BabyAdapter : RecyclerView.Adapter<BabyAdapter.BabyViewHolder>() {
     class BabyViewHolder (var view: View) : RecyclerView.ViewHolder(view) {
         private var tvNIK: TextView = view.findViewById(R.id.tvNIK)
         private var tvNama: TextView = view.findViewById(R.id.tvNama)
-        var btnDelete: TextView = view.findViewById(R.id.btnDelete)
 
         fun bindView (baby: BabyModel){
             tvNIK.text = baby.NIK

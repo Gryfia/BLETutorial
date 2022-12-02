@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.bletutorial.R
-import com.example.bletutorial.data.model.BabyModel
+import com.example.bletutorial.data.model.WeightModel
 import com.example.bletutorial.util.SQLiteHelper
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
@@ -31,14 +31,15 @@ class GrowthGraph : AppCompatActivity() {
         }
     }
 
-    private fun populateLineChart(values: Array<Int>) {
+    private fun populateLineChart(umur: Array<Int>, berat: Array<Float>) {
         val ourLineChartEntries: ArrayList<Entry> = ArrayList()
 
         var i = 0
 
-        for (entry in values) {
-            var value = values[i].toFloat()
-            ourLineChartEntries.add(Entry(i.toFloat(), value))
+        for (entry in umur) {
+            var umur = umur[i].toFloat()
+            var berat = berat[i].toFloat()
+            ourLineChartEntries.add(Entry(umur, berat))
             i++
         }
         val lineDataSet = LineDataSet(ourLineChartEntries, "")
@@ -52,8 +53,15 @@ class GrowthGraph : AppCompatActivity() {
 
         ourLineChart.xAxis.apply {
             isGranularityEnabled = true
-            granularity = 1f
             position = XAxis.XAxisPosition.BOTTOM
+            axisMinimum = 0f
+            axisMaximum = 50f
+        }
+
+        ourLineChart.axisLeft.apply {
+            isGranularityEnabled = true
+            axisMinimum = 0f
+            axisMaximum = 50f
         }
 
         lineDataSet.apply {
@@ -82,22 +90,25 @@ class GrowthGraph : AppCompatActivity() {
         //creating the instance of DatabaseHandler class
         val sqliteHelper: SQLiteHelper = SQLiteHelper(this)
         //calling the retreiveAnimals method of DatabaseHandler class to read the records
-        val baby: List<BabyModel> = sqliteHelper.getAllBaby()
+        val NIK = intent.getStringExtra("NIK")
+        val weight: List<WeightModel> = sqliteHelper.getWeightByNIK(NIK = NIK.toString())
         //create arrays for storing the values gotten
-        val babyIDArray = Array<Int>(baby.size) { 0 }
-        val babyNameArray = Array<String>(baby.size) { "" }
-        val babyEmailArray = Array<String>(baby.size) { "" }
+        val weightIDArray = Array<Int>(weight.size) { 0 }
+        val weightNIKArray = Array<String>(weight.size) { "" }
+        val weightUmurArray = Array<Int>(weight.size) { 0 }
+        val weightBeratArray = Array<Float>(weight.size) { 0f }
 
         //add the records till done
         var index = 0
-        for (a in baby) {
-            babyIDArray[index] = a.id
-            babyNameArray[index] = a.NIK
-            babyEmailArray[index] = a.nama
+        for (a in weight) {
+            weightIDArray[index] = a.id
+            weightNIKArray[index] = a.NIK
+            weightUmurArray[index] = a.umur
+            weightBeratArray[index] = a.berat
             index++
         }
         //call the methods for populating the charts
-        populateLineChart(babyIDArray)
+        populateLineChart(weightUmurArray, weightBeratArray)
 
     }
 
