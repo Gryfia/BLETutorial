@@ -5,6 +5,7 @@
     android:padding="8dp"
     android:weightSum="1"
     android:orientation="vertical"
+    android:background="#FCF5F3"
     >
 
     <View
@@ -33,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="NIK : "
+                android:fontFamily="@font/segoeui"
                 />
 
             <TextView
@@ -40,6 +42,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNIK"
                 android:text="Name"
+                android:fontFamily="@font/segoeui"
+
                 />
 
         </LinearLayout>
@@ -54,6 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nama : "
+                android:fontFamily="@font/segoeui"
+
                 />
 
             <TextView
@@ -61,6 +67,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNama"
                 android:text="Email"
+                android:fontFamily="@font/segoeui"
+
                 />
 
         </LinearLayout>

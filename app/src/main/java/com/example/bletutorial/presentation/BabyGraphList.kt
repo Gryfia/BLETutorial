@@ -1,5 +1,6 @@
 package com.example.bletutorial.presentation
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -12,7 +13,7 @@ import com.example.bletutorial.data.adapter.BabyAdapter
 import com.example.bletutorial.data.adapter.BabyGraphAdapter
 import com.example.bletutorial.util.SQLiteHelper
 
-class BabyGraphList : AppCompatActivity() {
+class BabyGraphList : Activity() {
 
 
     private lateinit var btnAdd : Button

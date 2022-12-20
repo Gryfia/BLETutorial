@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.BabyList">
+    tools:context=".presentation.BabyList"
+    android:background="#FCF5F3">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,19 +15,20 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Baby"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:padding="16dp"
-            />
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:text="Baby List"
+            android:textSize="22dp"
+            android:fontFamily="@font/heavy"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="20dp"
+            android:textColor="#766157"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="30dp"
             />
 
     </LinearLayout>
@@ -38,11 +40,13 @@
         >
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:id="@+id/btnAdd"
             android:text="Add Baby"
-            android:textAllCaps="false">
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:background="@drawable/button2">
         </Button>
 
     </LinearLayout>

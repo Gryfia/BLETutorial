@@ -5,6 +5,7 @@
     android:padding="8dp"
     android:weightSum="1"
     android:orientation="vertical"
+    android:background="#FCF5F3"
     >
 
     <View
@@ -39,13 +40,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NIK : "
+                    android:fontFamily="@font/segoeui"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvNIK"
-                    android:text="123456789"
+                    android:fontFamily="@font/segoeui"
+                    android:text="200901"
                     />
 
             </LinearLayout>
@@ -60,6 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nama : "
+                    android:fontFamily="@font/segoeui"
                     />
 
 
@@ -67,7 +71,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvNama"
-                    android:text="Ardha"
+                    android:fontFamily="@font/segoeui"
+                    android:text="Malla"
                     />
 
             </LinearLayout>
@@ -80,8 +85,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnDelete"
             android:text="Delete"
+            android:background="@drawable/button2"
+            android:textColor="@color/white"
             android:layout_gravity="center_vertical"
             android:textAllCaps="false"
+            android:fontFamily="@font/segoeui"
             />
 
     </LinearLayout>

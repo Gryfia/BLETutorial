@@ -2,46 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FCF5F3">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
         android:text="Add Baby"
-        android:textSize="20sp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="16sp"
+        android:textSize="22dp"
+        android:fontFamily="@font/heavy"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:textColor="#766157"
         />
-    <EditText
-        android:id="@+id/edNIK"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Enter NIK"
-        />
-    <EditText
-        android:id="@+id/edNama"
+        android:layout_height="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp">
+        <EditText
+            android:id="@+id/edNIK"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/nik"
+            android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="#FCF5F3"
+            android:text="  baby's NIK  "
+            android:fontFamily="@font/segoeui"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Enter Name"
-        />
+        android:layout_height="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp">
+        <EditText
+            android:id="@+id/edNama"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/nama"
+            android:inputType="text"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="#FCF5F3"
+            android:text="  baby's name  "
+            android:fontFamily="@font/segoeui"
+            />
+    </RelativeLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:gravity="center"
         >
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
             android:id="@+id/btnAdd"
             android:text="Add"
             android:textAllCaps="false"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button2"
             />
 
     </LinearLayout>

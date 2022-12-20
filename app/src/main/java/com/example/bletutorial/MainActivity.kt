@@ -1,9 +1,11 @@
 package com.example.bletutorial
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.material.MaterialTheme
 import com.example.bletutorial.ui.theme.BLETutorialTheme
@@ -13,10 +15,10 @@ import com.example.bletutorial.presentation.BabyGraphList
 import com.example.bletutorial.presentation.BabyList
 import com.example.bletutorial.presentation.GrowthGraph
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : Activity(), View.OnClickListener {
 
-    private lateinit var addbaby : Button
-    private lateinit var growthgraph : Button
+    private lateinit var addbaby : TextView
+    private lateinit var growthgraph : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

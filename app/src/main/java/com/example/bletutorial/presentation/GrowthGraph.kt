@@ -1,5 +1,6 @@
 package com.example.bletutorial.presentation
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 
 
-class GrowthGraph : AppCompatActivity() {
+class GrowthGraph : Activity() {
 
     private lateinit var ourLineChart: LineChart
 

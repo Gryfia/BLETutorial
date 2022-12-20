@@ -1,29 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@drawable/bg">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scale Baby"
-        android:id="@+id/addbaby"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:textAllCaps="false"
-        />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Growth Graph"
-        android:id="@+id/growthgraph"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:textAllCaps="false"
-        />
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginTop="130dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button">
+
+                <TextView
+                    android:layout_width="135dp"
+                    android:layout_height="match_parent"
+                    android:text="add data of your baby then measure the height"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="85dp"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/segoeui"
+                    android:textSize="12dp"/>
+
+
+                <TextView
+                    android:id="@+id/addbaby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/heavy"
+                    android:padding="20dp"
+                    android:text="ADD BABY"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="130dp"
+                    android:textSize="23sp"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/gd"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="-10dp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginTop="20dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button">
+
+                <TextView
+                    android:layout_width="135dp"
+                    android:layout_height="match_parent"
+                    android:text="monitoring your baby weight in the graph "
+                    android:textColor="@color/black"
+                    android:layout_marginTop="95dp"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/segoeui"
+                    android:textSize="12dp"/>
+
+
+                <TextView
+                    android:id="@+id/growthgraph"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/heavy"
+                    android:padding="20dp"
+                    android:text="GROWTH GRAPH"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="130dp"
+                    android:textSize="23sp"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ik"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="1dp"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,5 +1,6 @@
 package com.example.bletutorial.presentation
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,7 +11,7 @@ import com.example.bletutorial.R
 import com.example.bletutorial.data.model.BabyModel
 import com.example.bletutorial.util.SQLiteHelper
 
-class AddBaby : AppCompatActivity() {
+class AddBaby : Activity() {
 
     private lateinit var edNIK : EditText
     private lateinit var edNama : EditText
